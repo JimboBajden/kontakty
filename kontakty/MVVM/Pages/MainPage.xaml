@@ -15,8 +15,8 @@
                     <SwipeView>
                         <SwipeView.LeftItems>
                             <SwipeItems Mode="Reveal">
-                                <SwipeItem Text="Edit" BackgroundColor="LightBlue" Invoked="MenuFlyoutItem_Clicked"/>
-                                <SwipeItem Text="Delete" BackgroundColor="Red" Invoked="MenuFlyoutItem_Clicked_1"/>
+                                <SwipeItem Text="Edit" BackgroundColor="LightBlue" Invoked="SwipeItem_Invoked"/>
+                                <SwipeItem Text="Delete" BackgroundColor="Red" Invoked="SwipeItem_Invoked_1"/>
                             </SwipeItems>
                         </SwipeView.LeftItems>
                     

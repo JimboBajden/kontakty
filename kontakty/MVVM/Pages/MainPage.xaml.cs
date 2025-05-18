@@ -52,4 +52,25 @@ public partial class MainPage : ContentPage
             People.Remove(item);
         }
     }
+
+    private void SwipeItem_Invoked(object sender, EventArgs e)
+    {
+        var clickedItem = sender as SwipeItem;
+        var contact = clickedItem?.BindingContext as Person;
+
+        Navigation.PushAsync(new EditPage(contact, People, CensusDisplay));
+
+
+        CensusDisplay.SelectedItem = null;
+    }
+
+    private void SwipeItem_Invoked_1(object sender, EventArgs e)
+    {
+        var clickedItem = sender as SwipeItem;
+        var contact = clickedItem?.BindingContext as Person;
+        if (contact != null)
+        {
+            People.Remove(contact);
+        }
+    }
 }

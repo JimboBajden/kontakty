@@ -4,8 +4,8 @@ namespace kontakty.MVVM.Pages;
 using MVVM.Models;
 public partial class EditPage : ContentPage
 {
-    private readonly Person _person;
-    private readonly ObservableCollection<Person> _census;
+    private Person _person = new Person();
+    private ObservableCollection<Person> _census;
     private CollectionView kolekcja;
     public EditPage(Person person, ObservableCollection<Person> census, CollectionView tmp)
     {
