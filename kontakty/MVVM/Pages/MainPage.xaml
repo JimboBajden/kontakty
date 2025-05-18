@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="kontakty.MVVM.Pages.MainPage"
+             Title="MainPage">
+    <Grid RowDefinitions="Auto,*,Auto" MaximumWidthRequest="1024" MinimumHeightRequest="128">
+        <Label 
+            Text="Osoby egzystujące w czaso przestrzeni"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <CollectionView x:Name="CensusDisplay" ItemsSource="{Binding People}" SelectionMode="Multiple" SelectionChanged="CensusDisplay_SelectionChanged"
+                        Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate >
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItem Text="Edit" BackgroundColor="LightBlue" Invoked="MenuFlyoutItem_Clicked"/>
+                                <SwipeItem Text="Delete" BackgroundColor="Red" Invoked="MenuFlyoutItem_Clicked_1"/>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                    
+                    <Border VerticalOptions="Center">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="Grey" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="LightGreen" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                        <HorizontalStackLayout 
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        Spacing="10">
+                            
+                            <Label 
+                                Text="{Binding name}" 
+                                Padding="10,10,10,10" 
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"
+                                FontSize="18"/>
+                            <Label 
+                                Padding="10,10,10,10"
+                                Text="{Binding surname}" 
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center" 
+                                FontSize="18"/>   
+                            <FlyoutBase.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem  Text="edytuj" Clicked="MenuFlyoutItem_Clicked" />
+                                    <MenuFlyoutItem Text="usun" Clicked="MenuFlyoutItem_Clicked_1" />
+                                </MenuFlyout>
+                            </FlyoutBase.ContextFlyout>
+                           
+                        </HorizontalStackLayout>
+                        
+                    </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Grid Grid.Row="2" Padding="10,5" ColumnDefinitions="*,*">
+            <Button Grid.Column="0" Text="Add new" BackgroundColor="Green" Clicked="Button_Clicked"/>
+            <Button Grid.Column="1" Text="Remove selected" BackgroundColor="Red" Clicked="Button_Clicked_1"/>
+        </Grid>
+    </Grid>
+</ContentPage>
