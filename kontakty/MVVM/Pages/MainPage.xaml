@@ -22,35 +22,34 @@
         <CollectionView x:Name="CensusDisplay" ItemsSource="{Binding People}" SelectionMode="Multiple" SelectionChanged="CensusDisplay_SelectionChanged"
                         Grid.Row="1">
             <CollectionView.ItemTemplate>
-                <DataTemplate >
-                    <Border VerticalOptions="Center">
-                        <SwipeView>
-                            <SwipeView.LeftItems>
-                                <SwipeItems Mode="Reveal">
-                                    <SwipeItem Text="Edit" BackgroundColor="LightBlue" Invoked="SwipeItem_Invoked"/>
-                                    <SwipeItem Text="Delete" BackgroundColor="Red" Invoked="SwipeItem_Invoked_1"/>
-                                </SwipeItems>
-                            </SwipeView.LeftItems>
-                        </SwipeView>
-                        <VisualStateManager.VisualStateGroups>
+                <DataTemplate > 
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Reveal">
+                                <SwipeItem Text="Edit" BackgroundColor="SpringGreen" Invoked="SwipeItem_Invoked"/>
+                                <SwipeItem Text="Delete" BackgroundColor="Red" Invoked="SwipeItem_Invoked_1"/>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        
+                    <Border>
+                       <VisualStateManager.VisualStateGroups>
                             <VisualStateGroupList>
                                 <VisualStateGroup Name="CommonStates">
-                                    <VisualState Name="Normal">
-                                        <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="Grey" />
-                                        </VisualState.Setters>
-                                    </VisualState>
                                     <VisualState Name="Selected">
                                         <VisualState.Setters>
                                             <Setter Property="BackgroundColor" Value="LightGreen" />
                                         </VisualState.Setters>
                                     </VisualState>
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    
                                 </VisualStateGroup>
                             </VisualStateGroupList>
                         </VisualStateManager.VisualStateGroups>
-                        <HorizontalStackLayout HorizontalOptions="Center"
-                                        VerticalOptions="Center"
-                                        Spacing="10">
+                        <HorizontalStackLayout Spacing="10">
                             <Label 
                                 Text="{Binding name}" 
                                 Padding="10,10,10,10" 
@@ -69,7 +68,7 @@
                         </HorizontalStackLayout>
                         
                     </Border>
-                    
+                    </SwipeView>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
