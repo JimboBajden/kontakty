@@ -1,7 +1,6 @@
 namespace kontakty.MVVM.Pages;
 using MVVM.Models;
 using System.Collections.ObjectModel;
-
 public partial class MainPage : ContentPage
 {
    public ObservableCollection<Person> People { get; set; } = new ObservableCollection<Person>();
@@ -11,6 +10,9 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
         People.Add(new Person { name = "Jan", surname = "Kowalski" });
         BindingContext = this;
+        Baza test = new Baza();
+        ObservableCollection<Person> test213 = new ObservableCollection<Person>();
+        test213 = test.tmp();
     }
 
     private void MenuFlyoutItem_Clicked(object sender, EventArgs e)
