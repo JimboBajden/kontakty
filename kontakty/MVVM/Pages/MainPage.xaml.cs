@@ -5,15 +5,24 @@ public partial class MainPage : ContentPage
 {
    public ObservableCollection<Person> People { get; set; } = new ObservableCollection<Person>();
     List<Person> tmp = new List<Person>();
+    Baza baza = new Baza();
+    int page = 1;
+    int pageCount = 1;
     public MainPage()
 	{
 		InitializeComponent();
-        People.Add(new Person { name = "Jan", surname = "Kowalski" });
         BindingContext = this;
-        Baza test = new Baza();
         ObservableCollection<Person> test213 = new ObservableCollection<Person>();
-        test213 = test.tmp();
+        test213 = baza.GetPeople(0);
+        foreach (Person person in test213)
+        {
+            People.Add(person);
+        }
+        pageCount = baza.PageCount();
+
+        pager.Text = pageCount.ToString();
     }
+
 
     private void MenuFlyoutItem_Clicked(object sender, EventArgs e)
     {
@@ -36,10 +45,18 @@ public partial class MainPage : ContentPage
     {
         var clickedItem = sender as MenuFlyoutItem;
         var contact = clickedItem?.BindingContext as Person;
-        if (contact != null)
+        if (contact.id != null)
         {
-            People.Remove(contact);
+            baza.DeleteById(contact.id);
+            People.Clear();
+            ObservableCollection<Person> test213 = new ObservableCollection<Person>();
+            test213 = baza.GetPeople(0);
+            foreach (Person person in test213)
+            {
+                People.Add(person);
+            }
         }
+        
     }
 
     private void Button_Clicked(object sender, EventArgs e)

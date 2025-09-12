@@ -13,10 +13,12 @@
                     Clicked="Button_Clicked_1"/>
         </MenuBarItem>
     </ContentPage.MenuBarItems>
-    
+   
     <Grid RowDefinitions="Auto,*,Auto" MaximumWidthRequest="1024" MinimumHeightRequest="128">
+         
         <Label 
-            Text="Osoby egzystujące w czaso przestrzeni"
+            x:Name="pager"
+            Text=""
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <CollectionView x:Name="CensusDisplay" ItemsSource="{Binding People}" SelectionMode="Multiple" SelectionChanged="CensusDisplay_SelectionChanged"

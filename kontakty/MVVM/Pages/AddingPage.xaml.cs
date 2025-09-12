@@ -5,6 +5,7 @@ namespace kontakty.MVVM.Pages;
 
 public partial class AddingPage : ContentPage
 {
+    Baza baza = new Baza();
     public Person _person = new Person();
     public ObservableCollection<Person> osoby;
     public CollectionView kolekcja;
@@ -24,11 +25,9 @@ public partial class AddingPage : ContentPage
         }
         _person.name = FirstNameEntry.Text;
         _person.surname = LastNameEntry.Text;
-        osoby.Add(_person);
-        Navigation.RemovePage(this);
-        kolekcja.BindingContext = null;
-        kolekcja.ItemsSource = null;
-        kolekcja.BindingContext = osoby;
-        kolekcja.ItemsSource = osoby;
+        ObservableCollection<Person> test213 = new ObservableCollection<Person>();
+        baza.Add(FirstNameEntry.Text, LastNameEntry.Text);
+        Navigation.PopAsync();
+        
     }
 }
