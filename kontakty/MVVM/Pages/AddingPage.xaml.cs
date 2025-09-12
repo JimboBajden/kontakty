@@ -14,6 +14,7 @@ public partial class AddingPage : ContentPage
         InitializeComponent();
         osoby = census;
         kolekcja = tmp;
+
     }
 
     private void Button_Clicked(object sender, EventArgs e)
