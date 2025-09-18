@@ -9,12 +9,13 @@ public partial class AddingPage : ContentPage
     public Person _person = new Person();
     public ObservableCollection<Person> osoby;
     public CollectionView kolekcja;
-    public AddingPage(ObservableCollection<Person> census, CollectionView tmp)
+    public int _strona;
+    public AddingPage(ObservableCollection<Person> census, CollectionView tmp, int strona)
     {
         InitializeComponent();
         osoby = census;
         kolekcja = tmp;
-
+        _strona = strona;
     }
 
     private void Button_Clicked(object sender, EventArgs e)
@@ -26,8 +27,14 @@ public partial class AddingPage : ContentPage
         }
         _person.name = FirstNameEntry.Text;
         _person.surname = LastNameEntry.Text;
+        osoby.Clear();baza.Add(FirstNameEntry.Text, LastNameEntry.Text);
         ObservableCollection<Person> test213 = new ObservableCollection<Person>();
-        baza.Add(FirstNameEntry.Text, LastNameEntry.Text);
+        test213 = baza.GetPeople(_strona-1);
+        foreach (Person person in test213)
+        {
+            osoby.Add(person);
+        }
+        
         Navigation.PopAsync();
         
     }

@@ -13,14 +13,44 @@ namespace kontakty.MVVM.Models
     internal class Baza
     {
        
-        private SQLiteConnection conucter = new SQLiteConnection($"Data Source=C:\\Users\\5TP_Curzydlo_Przemek\\Source\\Repos\\kontakty\\kontakty\\baza\\baza.db; version=3");
+        private SQLiteConnection conucter = new SQLiteConnection($"Data Source=C:\\Users\\jimbo\\Desktop\\maui\\kontakty\\kontakty\\baza\\baza.db; version=3");
+        //C:\\Users\\jimbo\\Desktop\\maui\\kontakty\\kontakty\\baza\\baza.db
+        //C:\\Users\\5TP_Curzydlo_Przemek\\Source\\Repos\\kontakty\\kontakty\\baza\\baza.db
         public Baza() { conucter.Open(); }
         public int PageCount()
         {
             SQLiteCommand cmd = conucter.CreateCommand();
             cmd.CommandText = "SELECT COUNT(*) FROM osoby";
             int test = System.Convert.ToInt32(cmd.ExecuteScalar());
-            return (test+5)/5;
+            return (test+4)/5;
+        }
+        public ObservableCollection<Person> Search(string text)
+        {
+            if (string.IsNullOrEmpty(text)) { return null; }
+            SQLiteCommand cmd = conucter.CreateCommand();
+            cmd.CommandText = $"SELECT * FROM osoby WHERE (name || surname) LIKE '%{text}%'";
+            SQLiteDataReader tmp = cmd.ExecuteReader();
+            ObservableCollection<Person> People = new ObservableCollection<Person>();
+
+            while (tmp.Read())
+            {
+                People.Add(new Person { id = System.Convert.ToInt32(tmp[0]), name = tmp[1].ToString(), surname = tmp[2].ToString() });
+            }
+            return People;
+            
+        }
+        public void DeleteMultiple(List<int> id)
+        {
+            SQLiteCommand cmd = conucter.CreateCommand();
+            string idList = string.Join(",", id);
+            cmd.CommandText = $"DELETE FROM osoby WHERE id IN ({idList})";
+            cmd.ExecuteNonQuery();
+        }
+        public void update(int id , string name , string surname)
+        {
+            SQLiteCommand cmd = conucter.CreateCommand();
+            cmd.CommandText = $"UPDATE osoby SET name='{name}' , surname='{surname}' WHERE id = '{id}'";
+            cmd.ExecuteNonQuery();  
         }
         public ObservableCollection<Person> tmp()
         {
@@ -55,7 +85,7 @@ namespace kontakty.MVVM.Models
         public ObservableCollection<Person> GetPeople(int cwel) 
         {
             SQLiteCommand cmd = conucter.CreateCommand();
-            cmd.CommandText = $"SELECT * FROM osoby LIMIT 5 OFFSET {cwel * 5}";
+            cmd.CommandText = $"SELECT * FROM osoby LIMIT 5 OFFSET {(cwel-1) * 5}";
             SQLiteDataReader tmp = cmd.ExecuteReader();
             ObservableCollection<Person> People = new ObservableCollection<Person>();
 

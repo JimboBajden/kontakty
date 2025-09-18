@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 public partial class MainPage : ContentPage
 {
    public ObservableCollection<Person> People { get; set; } = new ObservableCollection<Person>();
-    List<Person> tmp = new List<Person>();
+    List<int> tmp = new List<int>();
     Baza baza = new Baza();
     int page = 1;
     int pageCount = 1;
@@ -20,16 +20,26 @@ public partial class MainPage : ContentPage
         }
         pageCount = baza.PageCount();
 
-        pager.Text = pageCount.ToString();
+        pager.Text = page.ToString();
     }
-
+    private void update()
+    {
+        People.Clear();
+        ObservableCollection<Person> test213 = new ObservableCollection<Person>();
+        test213 = baza.GetPeople(page);
+        foreach (Person person in test213)
+        {
+            People.Add(person);
+        }
+        pageCount = baza.PageCount();
+    }
 
     private void MenuFlyoutItem_Clicked(object sender, EventArgs e)
     {
         var clickedItem = sender as MenuFlyoutItem;
         var contact = clickedItem?.BindingContext as Person;
 
-        Navigation.PushAsync(new EditPage(contact, People, CensusDisplay));
+        Navigation.PushAsync(new EditPage(contact , People, CensusDisplay,page));
 
 
         CensusDisplay.SelectedItem = null;
@@ -38,7 +48,15 @@ public partial class MainPage : ContentPage
     private void CensusDisplay_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var selection = ((CollectionView)sender);
-        tmp = selection.SelectedItems.Cast<Person>().ToList();
+        tmp.Clear(); // Optional: clear previous selection
+        foreach (var item in selection.SelectedItems)
+        {
+            if (item is Person person)
+            {
+                tmp.Add(person.id);
+            }
+        }
+
     }
 
     private void MenuFlyoutItem_Clicked_1(object sender, EventArgs e)
@@ -61,15 +79,13 @@ public partial class MainPage : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new AddingPage(People, CensusDisplay));
+        Navigation.PushAsync(new AddingPage(People, CensusDisplay ,page));
     }
 
     private void Button_Clicked_1(object sender, EventArgs e)
     {
-        foreach (var item in tmp)
-        {
-            People.Remove(item);
-        }
+        baza.DeleteMultiple(tmp);
+        update();
     }
 
     private void SwipeItem_Invoked(object sender, EventArgs e)
@@ -77,7 +93,7 @@ public partial class MainPage : ContentPage
         var clickedItem = sender as SwipeItem;
         var contact = clickedItem?.BindingContext as Person;
 
-        Navigation.PushAsync(new EditPage(contact, People, CensusDisplay));
+        Navigation.PushAsync(new EditPage(contact, People, CensusDisplay , page));
 
 
         CensusDisplay.SelectedItem = null;
@@ -91,5 +107,39 @@ public partial class MainPage : ContentPage
         {
             People.Remove(contact);
         }
+    }
+
+    private void Button_Clicked_2(object sender, EventArgs e)
+    {
+        pageCount = baza.PageCount();
+        if(page < pageCount) { page++; update(); tmp.Clear(); }
+        pager.Text = page.ToString();
+        
+    }
+
+    private void Button_Clicked_3(object sender, EventArgs e)
+    {
+        pageCount = baza.PageCount();
+        if (page > 1) {  page--; update(); tmp.Clear(); }
+        pager.Text = page.ToString();
+        
+    }
+
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        SearchBar searchBar = sender as SearchBar;
+        if (!string.IsNullOrEmpty(searchBar.Text))
+        {
+            People.Clear();
+            ObservableCollection<Person> test213 = baza.Search(searchBar.Text);
+            foreach (Person person in test213)
+            {
+                People.Add(person);
+            }
+            page = 1;
+            pager.Text = "1";
+            pageCount = 1;
+        }else
+            update();
     }
 }

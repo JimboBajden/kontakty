@@ -15,12 +15,8 @@
     </ContentPage.MenuBarItems>
    
     <Grid RowDefinitions="Auto,*,Auto" MaximumWidthRequest="1024" MinimumHeightRequest="128">
-         
-        <Label 
-            x:Name="pager"
-            Text=""
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <SearchBar Grid.Row="0" TextChanged="SearchBar_TextChanged" Margin="10"></SearchBar>
+        
         <CollectionView x:Name="CensusDisplay" ItemsSource="{Binding People}" SelectionMode="Multiple" SelectionChanged="CensusDisplay_SelectionChanged"
                         Grid.Row="1">
             <CollectionView.ItemTemplate>
@@ -59,11 +55,13 @@
                                     <Label 
                                         Text="{Binding name}" 
                                         Padding="10,10,10,10" 
-                                        FontSize="18"/> 
+                                        FontSize="18"
+                                        TextColor="Black"/> 
                                     <Label 
                                         Padding="10,10,10,10"
                                         Text="{Binding surname}" 
-                                        FontSize="18"/>
+                                        FontSize="18"
+                                        TextColor="black"/>
                                     <FlyoutBase.ContextFlyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem  Text="edytuj" Clicked="MenuFlyoutItem_Clicked" />
@@ -80,9 +78,15 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Grid Grid.Row="2" Padding="10,5" ColumnDefinitions="*,*">
-            <Button Grid.Column="0" Text="Add new" BackgroundColor="Green" Clicked="Button_Clicked"/>
-            <Button Grid.Column="1" Text="Remove selected" BackgroundColor="Red" Clicked="Button_Clicked_1"/>
-        </Grid>
+        <HorizontalStackLayout Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center">
+            <Button Text="◀"  BackgroundColor="Peru" Clicked="Button_Clicked_3"/>
+            <Label 
+                x:Name="pager"
+                Text=""
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" ></Label>
+            <Button Text="▶"  BackgroundColor="Peru" Clicked="Button_Clicked_2"/>
+        </HorizontalStackLayout>
+       
     </Grid>
 </ContentPage>
