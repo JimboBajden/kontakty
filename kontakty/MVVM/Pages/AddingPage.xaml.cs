@@ -6,7 +6,7 @@ namespace kontakty.MVVM.Pages;
 public partial class AddingPage : ContentPage
 {
     Baza baza = new Baza();
-    public Person _person = new Person();
+    public Person _person { get; set; } = new Person();
     public ObservableCollection<Person> osoby;
     public CollectionView kolekcja;
     public int _strona;
@@ -16,8 +16,10 @@ public partial class AddingPage : ContentPage
         osoby = census;
         kolekcja = tmp;
         _strona = strona;
+        _person = new Person();
+        BindingContext = this;
     }
-
+    
     private void Button_Clicked(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(FirstNameEntry.Text) || string.IsNullOrWhiteSpace(LastNameEntry.Text))
@@ -25,9 +27,7 @@ public partial class AddingPage : ContentPage
             DisplayAlert("Error", "Please fill in all fields", "OK");
             return;
         }
-        _person.name = FirstNameEntry.Text;
-        _person.surname = LastNameEntry.Text;
-        osoby.Clear();baza.Add(FirstNameEntry.Text, LastNameEntry.Text);
+        osoby.Clear();baza.Add(_person.name , _person.surname);
         ObservableCollection<Person> test213 = new ObservableCollection<Person>();
         test213 = baza.GetPeople(_strona-1);
         foreach (Person person in test213)

@@ -5,7 +5,7 @@ using MVVM.Models;
 
 public partial class EditPage : ContentPage
 {
-    private Person _person = new Person();
+    public Person _person { get; set; } = new Person();
     private ObservableCollection<Person> _census;
     private CollectionView kolekcja;
     private int id;
@@ -13,14 +13,20 @@ public partial class EditPage : ContentPage
     public EditPage(Person person, ObservableCollection<Person> census, CollectionView tmp , int page)
     {
         InitializeComponent();
+        
         _person = person;
         _census = census;
         kolekcja = tmp;
-        FirstNameEntry.Text = person.name;
-        LastNameEntry.Text = person.surname;
         id = person.id;
         _page = page;
+        BindingContext = this;
     }
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+    }
+
     private void OnSaveClicked(object sender, EventArgs e)
     {
         if(string.IsNullOrWhiteSpace(FirstNameEntry.Text) || string.IsNullOrWhiteSpace(LastNameEntry.Text))
@@ -29,18 +35,15 @@ public partial class EditPage : ContentPage
             return;
         }
         Baza baza = new Baza();
-        baza.update(id, FirstNameEntry.Text, LastNameEntry.Text);
-        _census.Clear();
+        baza.update(id, _person.name, _person.surname);
         ObservableCollection<Person> test213 = new ObservableCollection<Person>();
+        _census.Clear();
         test213 = baza.GetPeople(_page);
         foreach (Person person in test213)
         {
             _census.Add(person);
         }
         Navigation.RemovePage(this);
-        kolekcja.BindingContext = null;
-        kolekcja.ItemsSource = null;
-        kolekcja.BindingContext = _census;
-        kolekcja.ItemsSource = _census;
+        
     }
 }

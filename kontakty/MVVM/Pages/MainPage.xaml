@@ -42,12 +42,12 @@
                                 </VisualStateGroupList>
                             </VisualStateManager.VisualStateGroups>
                         <SwipeView Grid.Column="0">
-                            <SwipeView.LeftItems>
+                            <n   , SwipeView.LeftItems>
                                 <SwipeItems Mode="Reveal">
                                     <SwipeItem Text="Edit" BackgroundColor="SpringGreen" Invoked="SwipeItem_Invoked"/>
                                     <SwipeItem Text="Delete" BackgroundColor="Red" Invoked="SwipeItem_Invoked_1"/>
                                 </SwipeItems>
-                            </SwipeView.LeftItems>
+                            </n>
                             
                             <Border>
 

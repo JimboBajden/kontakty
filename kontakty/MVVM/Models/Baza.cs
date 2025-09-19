@@ -13,7 +13,7 @@ namespace kontakty.MVVM.Models
     internal class Baza
     {
        
-        private SQLiteConnection conucter = new SQLiteConnection($"Data Source=C:\\Users\\jimbo\\Desktop\\maui\\kontakty\\kontakty\\baza\\baza.db; version=3");
+        private SQLiteConnection conucter = new SQLiteConnection($"Data Source=C:\\Users\\5TP_Curzydlo_Przemek\\Source\\Repos\\kontakty\\kontakty\\baza\\baza.db; version=3");
         //C:\\Users\\jimbo\\Desktop\\maui\\kontakty\\kontakty\\baza\\baza.db
         //C:\\Users\\5TP_Curzydlo_Przemek\\Source\\Repos\\kontakty\\kontakty\\baza\\baza.db
         public Baza() { conucter.Open(); }
@@ -82,10 +82,10 @@ namespace kontakty.MVVM.Models
             cmd.CommandText = $"INSERT INTO osoby (name , surname) VALUES ('{name}' , '{surname}')";
             cmd.ExecuteNonQuery();
         }
-        public ObservableCollection<Person> GetPeople(int cwel) 
+        public ObservableCollection<Person> GetPeople(int c) 
         {
             SQLiteCommand cmd = conucter.CreateCommand();
-            cmd.CommandText = $"SELECT * FROM osoby LIMIT 5 OFFSET {(cwel-1) * 5}";
+            cmd.CommandText = $"SELECT * FROM osoby LIMIT 5 OFFSET {(c-1) * 5}";
             SQLiteDataReader tmp = cmd.ExecuteReader();
             ObservableCollection<Person> People = new ObservableCollection<Person>();
 

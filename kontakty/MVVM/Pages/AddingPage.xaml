@@ -6,9 +6,9 @@
     <VerticalStackLayout Padding="20" Spacing="10" MaximumWidthRequest="512" MinimumHeightRequest="128">
         <Label Text="Edit Contact" FontSize="20" HorizontalOptions="Center"/>
         <Label Text="First Name:"/>
-        <Entry x:Name="FirstNameEntry"/>
+        <Entry x:Name="FirstNameEntry" Text="{Binding _person.name}"/>
         <Label Text="Last Name:"/>
-        <Entry x:Name="LastNameEntry"/>
+        <Entry x:Name="LastNameEntry" Text="{Binding _person.surname}"/>
         <Button Text="Save Changes" Clicked="Button_Clicked" Margin="0,20" BackgroundColor="Green"/>
     </VerticalStackLayout>
 </ContentPage>

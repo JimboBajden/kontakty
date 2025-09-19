@@ -19,8 +19,7 @@ public partial class MainPage : ContentPage
             People.Add(person);
         }
         pageCount = baza.PageCount();
-
-        pager.Text = page.ToString();
+        pager.Text = page.ToString() + '/' + pageCount;
     }
     private void update()
     {
@@ -41,8 +40,6 @@ public partial class MainPage : ContentPage
 
         Navigation.PushAsync(new EditPage(contact , People, CensusDisplay,page));
 
-
-        CensusDisplay.SelectedItem = null;
     }
 
     private void CensusDisplay_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -79,13 +76,17 @@ public partial class MainPage : ContentPage
 
     private void Button_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new AddingPage(People, CensusDisplay ,page));
+         Navigation.PushAsync(new AddingPage(People, CensusDisplay ,page ));
+
     }
 
     private void Button_Clicked_1(object sender, EventArgs e)
     {
         baza.DeleteMultiple(tmp);
+        if (page > baza.PageCount()) { page = baza.PageCount(); }
+        pager.Text = page.ToString() + '/' + baza.PageCount();
         update();
+        tmp.Clear();
     }
 
     private void SwipeItem_Invoked(object sender, EventArgs e)
@@ -113,16 +114,18 @@ public partial class MainPage : ContentPage
     {
         pageCount = baza.PageCount();
         if(page < pageCount) { page++; update(); tmp.Clear(); }
-        pager.Text = page.ToString();
-        
+        pageCount = baza.PageCount();
+        pager.Text = page.ToString() + '/' + pageCount;
+
     }
 
     private void Button_Clicked_3(object sender, EventArgs e)
     {
         pageCount = baza.PageCount();
         if (page > 1) {  page--; update(); tmp.Clear(); }
-        pager.Text = page.ToString();
-        
+        pageCount = baza.PageCount();
+        pager.Text = page.ToString() + '/' + pageCount;
+
     }
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -137,9 +140,18 @@ public partial class MainPage : ContentPage
                 People.Add(person);
             }
             page = 1;
-            pager.Text = "1";
+            pager.Text = "1/1";
             pageCount = 1;
         }else
             update();
+    }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        pageCount = baza.PageCount();
+        if (page > pageCount) { page = pageCount; }
+        pager.Text = page.ToString() + '/' + pageCount;
+        update();
+        tmp.Clear();
     }
 }
