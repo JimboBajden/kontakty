@@ -13,7 +13,7 @@ namespace kontakty.MVVM.Models
     internal class Baza
     {
        
-        private SQLiteConnection conucter = new SQLiteConnection($"Data Source=C:\\Users\\5TP_Curzydlo_Przemek\\Source\\Repos\\kontakty\\kontakty\\baza\\baza.db; version=3");
+        private SQLiteConnection conucter = new SQLiteConnection($"Data Source=C:\\Users\\jimbo\\Desktop\\maui\\kontakty\\kontakty\\baza\\baza.db; version=3");
         //C:\\Users\\jimbo\\Desktop\\maui\\kontakty\\kontakty\\baza\\baza.db
         //C:\\Users\\5TP_Curzydlo_Przemek\\Source\\Repos\\kontakty\\kontakty\\baza\\baza.db
         public Baza() { conucter.Open(); }

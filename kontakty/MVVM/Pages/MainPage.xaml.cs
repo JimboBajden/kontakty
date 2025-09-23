@@ -64,13 +64,11 @@ public partial class MainPage : ContentPage
         {
             baza.DeleteById(contact.id);
             People.Clear();
-            ObservableCollection<Person> test213 = new ObservableCollection<Person>();
-            test213 = baza.GetPeople(0);
-            foreach (Person person in test213)
-            {
-                People.Add(person);
-            }
+            if (page > baza.PageCount()) { page = baza.PageCount(); }
+            pager.Text = page.ToString() + '/' + baza.PageCount();
+            update();
         }
+
         
     }
 
@@ -91,7 +89,7 @@ public partial class MainPage : ContentPage
 
     private void SwipeItem_Invoked(object sender, EventArgs e)
     {
-        var clickedItem = sender as SwipeItem;
+        var clickedItem = sender as Button;
         var contact = clickedItem?.BindingContext as Person;
 
         Navigation.PushAsync(new EditPage(contact, People, CensusDisplay , page));
@@ -102,7 +100,7 @@ public partial class MainPage : ContentPage
 
     private void SwipeItem_Invoked_1(object sender, EventArgs e)
     {
-        var clickedItem = sender as SwipeItem;
+        var clickedItem = sender as Button;
         var contact = clickedItem?.BindingContext as Person;
         if (contact != null)
         {

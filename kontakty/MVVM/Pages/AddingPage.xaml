@@ -4,7 +4,7 @@
              x:Class="kontakty.MVVM.Pages.AddingPage"
              Title="AddingPage">
     <VerticalStackLayout Padding="20" Spacing="10" MaximumWidthRequest="512" MinimumHeightRequest="128">
-        <Label Text="Edit Contact" FontSize="20" HorizontalOptions="Center"/>
+        <Label Text="add Contact" FontSize="20" HorizontalOptions="Center"/>
         <Label Text="First Name:"/>
         <Entry x:Name="FirstNameEntry" Text="{Binding _person.name}"/>
         <Label Text="Last Name:"/>
