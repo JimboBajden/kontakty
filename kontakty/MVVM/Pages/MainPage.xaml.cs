@@ -104,7 +104,7 @@ public partial class MainPage : ContentPage
         var contact = clickedItem?.BindingContext as Person;
         if (contact != null)
         {
-            People.Remove(contact);
+            baza.DeleteById(contact.id);
         }
     }
 
@@ -141,7 +141,10 @@ public partial class MainPage : ContentPage
             pager.Text = "1/1";
             pageCount = 1;
         }else
+        {
             update();
+            pager.Text = page.ToString() + '/' + pageCount;
+        }
     }
     protected override void OnAppearing()
     {

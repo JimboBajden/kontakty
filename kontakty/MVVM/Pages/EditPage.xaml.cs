@@ -35,7 +35,7 @@ public partial class EditPage : ContentPage
             return;
         }
         Baza baza = new Baza();
-        baza.update(id, _person.name, _person.surname);
+        baza.update(id, _person.name, _person.surname , _person.number);
         ObservableCollection<Person> test213 = new ObservableCollection<Person>();
         _census.Clear();
         test213 = baza.GetPeople(_page);

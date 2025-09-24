@@ -11,8 +11,10 @@ namespace kontakty.MVVM.Models
         private string _name;
         private string _surname;
         private int _id;
+        private string  _number;
         public string name { get { return _name; } set { _name = value; } }
         public string surname { get { return _surname; } set { _surname = value; } }
         public int id { get { return _id; } set { _id = value; } }
+        public string number { get { return _number; } set { _number = value; } }
     }
 }

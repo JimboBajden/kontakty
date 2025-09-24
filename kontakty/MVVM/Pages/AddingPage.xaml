@@ -9,6 +9,8 @@
         <Entry x:Name="FirstNameEntry" Text="{Binding _person.name}"/>
         <Label Text="Last Name:"/>
         <Entry x:Name="LastNameEntry" Text="{Binding _person.surname}"/>
+        <Label Text="Phone Number:"/>
+        <Entry x:Name="PhoneNumber" Text="{Binding _person.number}"/>
         <Button Text="Save Changes" Clicked="Button_Clicked" Margin="0,20" BackgroundColor="Green"/>
     </VerticalStackLayout>
 </ContentPage>

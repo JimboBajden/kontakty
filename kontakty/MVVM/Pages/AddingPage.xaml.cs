@@ -27,7 +27,7 @@ public partial class AddingPage : ContentPage
             DisplayAlert("Error", "Please fill in all fields", "OK");
             return;
         }
-        osoby.Clear();baza.Add(_person.name , _person.surname);
+        osoby.Clear();baza.Add(_person.name , _person.surname , _person.number);
         ObservableCollection<Person> test213 = new ObservableCollection<Person>();
         test213 = baza.GetPeople(_strona-1);
         foreach (Person person in test213)
